@@ -171,7 +171,7 @@
 /* Completed */
 .site-list__item .site-list__label_completed {
   /* text-decoration: line-through; */
-  color: #888;
+  /* color: #888; */
 }
 
 /* Edit Task */
