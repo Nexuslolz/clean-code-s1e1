@@ -42,6 +42,7 @@ var createNewTaskElement = function (taskString) {
     checkBox.classList.add('input-checkbox');
 
     editInput.type = "text";
+    editInput.value = taskInput.value
     editInput.classList.add('site-list__input');
 
     editButton.innerText = "Edit"; //innerText encodes special characters, HTML does not.
@@ -64,8 +65,6 @@ var createNewTaskElement = function (taskString) {
     return listItem;
 }
 
-
-
 var addTask = function () {
     console.log("Add Task...");
     //Create a new list item with the text from the #new-task:
@@ -82,23 +81,25 @@ var addTask = function () {
 
 //Edit an existing task.
 
-var editTask = function () {
+var editTask = function (event) {
     console.log("Edit Task...");
     console.log("Change 'edit' to 'save'");
 
 
     var listItem = this.parentNode;
 
-    var editInput = listItem.querySelector('.site-list__input');
+    var editInput = listItem.querySelectorAll('.site-list__input');
     var label = listItem.querySelector(".site-list__label");
     var editBtn = listItem.querySelector(".btn-edit");
-    var containsClass = listItem.classList.contains("site-list__item__editting");
+    var containsClass = listItem.classList.contains("site-list__item_editting");
     //If class of the parent is .editmode
     if (containsClass) {
 
         //switch to .editmode
         //label becomes the inputs value.
-        label.innerText = editInput.value;
+        editInput.forEach((elem) => {
+            label.innerText = elem.value;
+        })
         editBtn.innerText = "Edit";
     } else {
         editInput.value = label.innerText;
@@ -106,7 +107,13 @@ var editTask = function () {
     }
 
     //toggle .editmode on the parent.
-    listItem.classList.toggle("site-list__item__editting");
+    listItem.classList.toggle("site-list__item_editting");
+
+    editInput.forEach((elem) => {
+        elem.classList.toggle('site-list__input_editting')
+    })
+    label.classList.toggle('site-list__label_editting')
+
 };
 
 
